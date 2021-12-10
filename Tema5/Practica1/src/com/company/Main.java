@@ -150,4 +150,9 @@ public class Main {
         int logitud=numeros.size();
         javax.swing.JOptionPane.showMessageDialog(null, "El numero de elementos es " + logitud);
     }
+
+    public static void añadirElemento() throws Exception{
+        Double num=Double.parseDouble(javax.swing.JOptionPane.showInputDialog("Introduce el numero que quieres añadir."));
+        numeros.add(num);
+    }
 }
