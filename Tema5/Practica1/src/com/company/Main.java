@@ -10,19 +10,22 @@ import java.util.List;
 
 public class Main {
 
-    private static final List<Integer> numeros = new ArrayList<Integer>();
+    private static final List<Double> numeros = new ArrayList<Double>();
 
     public static void main(String[] args) {
-        pedirNumero();
-        int opcion = mostrarMenu();
-        llevarOperacion(opcion);
+        try {
+            pedirNumero();
+            mostrarMenu();
+        }catch (Exception e){
+            javax.swing.JOptionPane.showMessageDialog(null, "Problemas "+ e.getClass());
+        }
     }
 
-    public static void pedirNumero() {
+    public static void pedirNumero() throws Exception {
         boolean error = true;
         do {
             try {
-                int numero = Integer.parseInt(javax.swing.JOptionPane.showInputDialog("Introduce el numero que quieres guardar"));
+                double numero = Double.parseDouble(javax.swing.JOptionPane.showInputDialog("Introduce el numero que quieres guardar"));
                 if (numero < 0) {
                     throw new NumeroNoValido();
                 } else {
@@ -36,7 +39,7 @@ public class Main {
         } while (error || javax.swing.JOptionPane.showConfirmDialog(null, "Quieres continuar") == 0);
     }
 
-    public static int mostrarMenu() {
+    public static void mostrarMenu() throws Exception {
         int opcion = 0;
         boolean error = true;
         do {
@@ -63,10 +66,10 @@ public class Main {
             }
         }
         while (error);
-        return opcion;
+        llevarOperacion(opcion);
     }
 
-    public static void llevarOperacion(int opcion) {
+    public static void llevarOperacion(int opcion) throws Exception {
         while (opcion != 10) {
             switch (opcion) {
                 case 1:
@@ -82,10 +85,10 @@ public class Main {
                     arrayListtoArray();
                     break;
                 case 5:
-                    sumarDiagonalInversa();
+                    numeroElementos();
                     break;
                 case 6:
-                    calcularMedia();
+                    //calcularMedia();
                     break;
                 case 7:
 
@@ -100,19 +103,20 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "Hasta otra");
                     break;
             }
+            mostrarMenu();
         }
 
     }
 
-    public static void valorMaxyMin() {
-        int numMax = Collections.max(numeros);
-        int numMin = Collections.min(numeros);
+    public static void valorMaxyMin() throws Exception {
+        double numMax = Collections.max(numeros);
+        double numMin = Collections.min(numeros);
 
         javax.swing.JOptionPane.showMessageDialog(null, "El valor maximo es " + numMax + " y el valor minimo " + numMin);
     }
 
-    public static void buscarNumero() {
-        int num = Integer.parseInt(javax.swing.JOptionPane.showInputDialog("Introduce el numero a buscar."));
+    public static void buscarNumero() throws Exception {
+        Double num = Double.parseDouble(javax.swing.JOptionPane.showInputDialog("Introduce el numero a buscar."));
 
         if (numeros.contains(num)){
             javax.swing.JOptionPane.showMessageDialog(null, "SI he encontrado el numero.");
@@ -122,7 +126,7 @@ public class Main {
     }
 
     public static void buscaryBorrar() {
-        int num = Integer.parseInt(javax.swing.JOptionPane.showInputDialog("Introduce el numero a buscar."));
+        Double num = Double.parseDouble(javax.swing.JOptionPane.showInputDialog("Introduce el numero a buscar."));
 
         if (numeros.contains(num)){
             numeros.remove(num);
@@ -130,9 +134,20 @@ public class Main {
         }else{
             javax.swing.JOptionPane.showMessageDialog(null, "NO he  encontrado el numero.");
         }
+
     }
 
-    public static void arrayListtoArray(){
-        
+    public static void arrayListtoArray() throws Exception{
+        int logitud=numeros.size();
+        double [] arrayNumeros = new double[logitud];
+
+        for (int i=0;i<arrayNumeros.length;i++){
+            arrayNumeros[i]=numeros.get(i);
+        }
+    }
+
+    public static void numeroElementos() throws Exception{
+        int logitud=numeros.size();
+        javax.swing.JOptionPane.showMessageDialog(null, "El numero de elementos es " + logitud);
     }
 }
