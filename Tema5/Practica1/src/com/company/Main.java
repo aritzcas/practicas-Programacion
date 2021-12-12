@@ -70,8 +70,9 @@ public class Main {
     }
 
     public static void llevarOperacion(int opcion) throws Exception {
-        while (opcion != 10) {
-            switch (opcion) {
+        int opc=opcion;
+        while (opc != 10) {
+            switch (opc) {
                 case 1:
                     valorMaxyMin();
                     break;
@@ -88,16 +89,16 @@ public class Main {
                     numeroElementos();
                     break;
                 case 6:
-                    //calcularMedia();
+                    anadirElemento();
                     break;
                 case 7:
-
+                    anadirElementoPosicion();
                     break;
                 case 8:
-
+                    borrarPosicion();
                     break;
                 case 9:
-
+                    operaciones();
                     break;
                 case 10:
                     JOptionPane.showMessageDialog(null, "Hasta otra");
@@ -125,7 +126,7 @@ public class Main {
         }
     }
 
-    public static void buscaryBorrar() {
+    public static void buscaryBorrar() throws Exception {
         Double num = Double.parseDouble(javax.swing.JOptionPane.showInputDialog("Introduce el numero a buscar."));
 
         if (numeros.contains(num)){
@@ -151,8 +152,31 @@ public class Main {
         javax.swing.JOptionPane.showMessageDialog(null, "El numero de elementos es " + logitud);
     }
 
-    public static void añadirElemento() throws Exception{
+    public static void anadirElemento() throws Exception{
         Double num=Double.parseDouble(javax.swing.JOptionPane.showInputDialog("Introduce el numero que quieres añadir."));
         numeros.add(num);
+    }
+
+    public static void anadirElementoPosicion() throws Exception{
+        Double num=Double.parseDouble(javax.swing.JOptionPane.showInputDialog("Introduce el numero que quieres añadir."));
+        int posicion=Integer.parseInt(javax.swing.JOptionPane.showInputDialog("Introduce en que posicion la quieres añadir."));
+        numeros.add(posicion,num);
+    }
+
+    public static void borrarPosicion() throws  Exception{
+        int posicion=Integer.parseInt(javax.swing.JOptionPane.showInputDialog("que posicion quieres borrar."));
+        posicion=posicion-1;
+        numeros.remove(posicion);
+
+    }
+
+    public static void operaciones() throws  Exception{
+        double sum = 0;
+        for(Double i : numeros)
+            sum += i;
+
+        int cantidad=numeros.size();
+        System.out.println(cantidad);
+        javax.swing.JOptionPane.showMessageDialog(null, "La suma de los valores es "+ sum+ " y la media es " + sum/cantidad);
     }
 }
