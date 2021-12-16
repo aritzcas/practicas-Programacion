@@ -1,4 +1,4 @@
-# practicas-Programacion
+#Practicas de Programacion
 Todas las Practicas de la asignatura de Programacion.
 
 Autor: Aritz Castillo.
