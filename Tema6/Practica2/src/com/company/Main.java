@@ -36,7 +36,6 @@ public class Main {
 
         try {
             int codigo = Integer.parseInt(JOptionPane.showInputDialog("Introduce el codigo del Alumno que quieres buscar:"));
-
             alumnos.forEach(alumno -> {
                 System.out.println(alumno.getCodigo() == codigo);
                 if (alumno.getCodigo() == codigo) {
