@@ -9,6 +9,7 @@ Todas las Practicas de la asignatura de Programacion.
 - Tema 6
 	- Practica 1
 	- Practica 2
+	- Practica 3
 
 ![alt text](https://www.egibide.org/file/2017/07/logo-vector-egibide-h-300x152.png)
 
