@@ -1,21 +1,19 @@
 package Clases;
 
+import javafx.fxml.LoadException;
+
 import java.time.LocalDate;
 
 public class Persona {
     String nombre;
-    int dNacimiento;
-    int mNacimiento;
-    int aNacimiento;
+    LocalDate fecha;
     String direccion;
-    int codigoPostal;
+    String codigoPostal;
     String ciudad;
 
-    public Persona(String nombre, int dNacimiento, int mNacimiento, int aNacimiento, String direccion, int codigoPostal, String ciudad) {
+    public Persona(String nombre, LocalDate fecha, String direccion, String codigoPostal, String ciudad) {
         this.nombre = nombre;
-        this.dNacimiento = dNacimiento;
-        this.mNacimiento = mNacimiento;
-        this.aNacimiento = aNacimiento;
+        this.fecha =fecha;
         this.direccion = direccion;
         this.codigoPostal = codigoPostal;
         this.ciudad = ciudad;
@@ -26,23 +24,15 @@ public class Persona {
         return nombre;
     }
 
-    public int getdNacimiento() {
-        return dNacimiento;
-    }
-
-    public int getmNacimiento() {
-        return mNacimiento;
-    }
-
-    public int getaNacimiento() {
-        return aNacimiento;
+    public LocalDate getFecha() {
+        return fecha;
     }
 
     public String getDireccion() {
         return direccion;
     }
 
-    public int getCodigoPostal() {
+    public String getCodigoPostal() {
         return codigoPostal;
     }
 

@@ -2,6 +2,7 @@ package com.company;
 
 import Clases.Persona;
 import Excepciones.ValidacionErronea;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.time.LocalDate;
@@ -11,30 +12,39 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Main {
     private static final ArrayList<Persona> personas = new ArrayList();
+    private static String cadena=("Personas de Elche: \n");
+    private static String cadenaMayoresEdad=("Personas Mayores de Edad: \n");
+    private static String nombreMayor;
 
     public static void main(String[] args) {
         pedirPersona();
-        personasElche();
+        mostrarPantalla();
     }
+    public static void mostrarPantalla(){
+        personaMasMayor();
+        personasElche();
+        personasMayoresEdad();
 
+    }
     public static void pedirPersona() {
 
         do {
             try {
                 String nombre = JOptionPane.showInputDialog("Introduce el Nombre:");
                 validarNombre(nombre);
-                LocalDate fecha = inputDate("Intgoduce una fecha de nacimiento (dd/mm/aaaa)");
+                String fecha1=JOptionPane.showInputDialog("Intgoduce una fecha de nacimiento (dd/mm/aaaa)");
+                LocalDate fecha = inputDate(fecha1);
                 String domicilio=JOptionPane.showInputDialog("Introduce el Domicilio:");
                 validarDomicilio(domicilio);
-                int codigoPostal=Integer.parseInt(JOptionPane.showInputDialog("Introduce el Codigo Postal:"));
+                String codigoPostal=JOptionPane.showInputDialog("Introduce el Codigo Postal:");
                 validarCodigoPostal(codigoPostal);
                 String ciudad= JOptionPane.showInputDialog("Introduce la Ciudad:");
                 validarNombre(ciudad);
-                Persona nueva= new Persona(nombre,fecha.getDayOfMonth(),fecha.getMonthValue(),fecha.getYear(),domicilio,codigoPostal,ciudad);
+                Persona nueva= new Persona(nombre,fecha,domicilio,codigoPostal,ciudad);
 
                 personas.add(nueva);
             }catch (ValidacionErronea e) {
-                System.out.println("Dato no valido");
+                System.out.println("Dato introducido NO valido, empieza de nuevo.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -58,12 +68,16 @@ public class Main {
 
     }
 
-    public static void validarCodigoPostal(int codigoPostal) throws Exception {
+    public static void validarCodigoPostal(String codigoPostal) throws Exception {
         boolean error = false;
-        if (String.valueOf(codigoPostal).length() != 5){
+        if (codigoPostal.length() != 5){
             error = true;}
         if (error){
             throw new ValidacionErronea();}
+    }
+    public static LocalDate parseDateString(String dateString){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(dateString, dateTimeFormatter);
     }
     public static LocalDate inputDate(String datoIntroducido) {
         LocalDate fecha;
@@ -75,19 +89,37 @@ public class Main {
         }
         return fecha;
     }
-    public static LocalDate parseDateString(String dateString){
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(dateString, dateTimeFormatter);
-    }
+    public static void personaMasMayor(){
+        AtomicReference<LocalDate> maxFecha= new AtomicReference<>(LocalDate.now());
+        //AtomicReference<String> maxNombre = null;
 
+        personas.forEach(persona -> {
+            LocalDate fecha= LocalDate.of(persona.getFecha().getYear(),persona.getFecha().getMonthValue(),persona.getFecha().getDayOfMonth());
+            if (fecha.isBefore(maxFecha.get())){
+                maxFecha.set(fecha);
+                nombreMayor=persona.getNombre();
+            }
+        });
+
+        JOptionPane.showMessageDialog(null, "La persona mas mayor es "+nombreMayor);
+    }
     public static void personasElche(){
-        AtomicReference<String> cadena= new AtomicReference<>("Personas de Elche: \n");
         personas.forEach(persona -> {
             if (persona.getCiudad().equalsIgnoreCase("Elche"))
-                cadena.set(persona.getNombre() + "\n");
+                cadena+=persona.getNombre()+" \n";
         });
+        JOptionPane.showMessageDialog(null, cadena);
     }
-
+    public static void personasMayoresEdad(){
+        personas.forEach(persona -> {
+            int anoNacimiento= persona.getFecha().getYear();
+            int anoHoy= LocalDate.now().getYear();
+            if ((anoHoy-anoNacimiento)>18){
+                cadenaMayoresEdad+=persona.getNombre()+" \n";
+            }
+        });
+        JOptionPane.showMessageDialog(null, cadenaMayoresEdad);
+    }
 }
 
 
