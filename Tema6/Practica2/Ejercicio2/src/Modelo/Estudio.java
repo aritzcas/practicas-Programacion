@@ -28,6 +28,15 @@ public class Estudio {
         this.listaPeliculas = listaPeliculas;
     }
 
+    public Estudio(String nombre, String ciudad, String direccion, String dirWeb, LocalDate fechaFundacion, String pais, ArrayList<String> telefonos) {
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+        this.direccion = direccion;
+        this.dirWeb = dirWeb;
+        this.fechaFundacion = fechaFundacion;
+        this.pais = pais;
+        this.telefonos = telefonos;
+    }
 
     public String getNombre() {
         return nombre;
