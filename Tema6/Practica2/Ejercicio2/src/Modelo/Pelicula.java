@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class Pelicula {
     private String titulo;
-    private  int año;
-    private float duracion;
+    private int ano;
+    private int duracionMinutos;
     private String tipo;
 
 
     private ArrayList<Estudio> listaEstudios;
 
 
-    public Pelicula(String titulo, int año, float duracion, String tipo, ArrayList<Estudio> listaEstudios) {
+    public Pelicula(String titulo, int ano, int duracionMinutos, String tipo, ArrayList<Estudio> listaEstudios) {
         this.titulo = titulo;
-        this.año = año;
-        this.duracion = duracion;
+        this.ano = ano;
+        this.duracionMinutos = duracionMinutos;
         this.tipo = tipo;
         this.listaEstudios = listaEstudios;
     }
@@ -29,20 +29,20 @@ public class Pelicula {
         this.titulo = titulo;
     }
 
-    public int getAño() {
-        return año;
+    public int getAno() {
+        return ano;
     }
 
-    public void setAño(int año) {
-        this.año = año;
+    public void setAno(int ano) {
+        this.ano = ano;
     }
 
-    public float getDuracion() {
-        return duracion;
+    public int getDuracionminutos() {
+        return duracionMinutos;
     }
 
-    public void setDuracion(float duracion) {
-        this.duracion = duracion;
+    public void setDuracionminutos(int duracionMinutos) {
+        this.duracionMinutos = duracionMinutos;
     }
 
     public String getTipo() {
