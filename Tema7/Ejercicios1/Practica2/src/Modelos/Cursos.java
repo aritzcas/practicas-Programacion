@@ -3,39 +3,48 @@ package Modelos;
 import java.util.ArrayList;
 
 public class Cursos {
-    private int nivel;
-    private char letraClase;
+    private String clase;
+    private String descripcion;
     private ArrayList<Personas> listaAlumnos;
 
-    public Cursos(int nivel, char letraClase) {
-        this.nivel = nivel;
-        this.letraClase = letraClase;
+    public Cursos(String clase, String descripcion) {
+        this.clase = clase;
+        this.descripcion = descripcion;
         listaAlumnos = new ArrayList<>();
     }
 
-    public int getNivel() {
+    public String getClase() {
 
-        return nivel;
+        return clase;
     }
 
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
+    public void setClase(String clase) {
+        this.clase = clase;
     }
 
-    public char getLetraClase() {
-        return letraClase;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setLetraClase(char letraClase) {
-        this.letraClase = letraClase;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public ArrayList<Personas> getAlumnos() {
+    public ArrayList<Personas> getListaAlumnos() {
         return listaAlumnos;
     }
 
-    public void setAlumnos(ArrayList<Personas> listaAlumnos) {
+    public void setListaAlumnos(ArrayList<Personas> listaAlumnos) {
         this.listaAlumnos = listaAlumnos;
     }
 
+    public void setAlumno(Personas a)
+    {
+        listaAlumnos.add(a);
+    }
+
+    public void borrarAlumno(Personas a)
+    {
+        listaAlumnos.remove(a);
+    }
 }

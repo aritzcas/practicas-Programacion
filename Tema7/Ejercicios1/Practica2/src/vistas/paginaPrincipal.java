@@ -30,16 +30,21 @@ public class paginaPrincipal {
                 fAceptar();
             }
         });
+        bSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(1);
+            }
+        });
     }
     public void fAceptar()
     {
         //JOptionPane.showMessageDialog(null,"Adios");
         // Validar y enviar al Controlador
-        if (datosCorrectos())
+        if (datosCorrectos()&& validarCurso())
         {
-            Main.tenDatos(tfDNI.getText());
-
-            //Main.crearPersona(tfNombre.getText(),tfApellidos.getText(),tfDNI.getText());
+            Main.crearPersona(tfNombre.getText(), tfApellidos.getText(), tfDNI.getText());
+            limpiarTF();
         }
     }
 
@@ -48,34 +53,54 @@ public class paginaPrincipal {
             Pattern pat = Pattern.compile("^[0-9]{8}[A-Za-z]$");
             Matcher mat = pat.matcher(tfDNI.getText());
             if (tfDNI.getText().isEmpty() || !mat.matches()) {
-                throw new Exception("El DNI no esta, o no es correcto.");
+                JOptionPane.showMessageDialog(null, "El dni no existe o no puede estar vacio.");
             }
             if (tfNombre.getText().isEmpty()){
-                throw new Exception("El nombre no puede estar vacio.");
+                JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio.");
             }
             if (tfApellidos.getText().isEmpty()){
-                throw new Exception("El apellido no puede estar vacio.");
+                JOptionPane.showMessageDialog(null, "El apellido no puede estar vacio.");
             }
-            if (tfCurso.getText().isEmpty()){
-                throw new Exception("El curso no puede estar vacio.");
-            }
-            return true;
+           return true;
         }catch(Exception e)
         {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error");
             return false;
         }
 
     }
+    public boolean validarCurso(){
 
-    public static void main(String[] args) {
+            if (tfCurso.getText().isEmpty())
+                JOptionPane.showMessageDialog(null, "No puede estar vacio.");
+
+            if (!Main.tenDatos(tfCurso.getText()))
+                JOptionPane.showMessageDialog(null, "No existe el curso");
+
+            return true;
+
+    }
+    public  void main(String[] args) {
         JFrame frame = new JFrame("paginaPrincipal");
         frame.setContentPane(new paginaPrincipal().panelPrincipal);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
-
+    public  JPanel getPanel(){
+        return panelPrincipal;
+    }
+    public void limpiarTF(){
+        tfDNI.setText("");
+        tfDNI.setEditable(true);
+        tfNombre.setText("");
+        tfNombre.setEditable(true);
+        tfApellidos.setText("");
+        tfApellidos.setEditable(true);
+        tfCurso.setText("");
+        tfCurso.setEditable(true);
+        tfDNI.requestFocus();
+    }
 }
 
 
