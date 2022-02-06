@@ -8,24 +8,21 @@ public class Mascota {
     private String sexo;
     private float peso;
     private float longitud;
-    private String tipo;
     private String raza;
     private String tipoPelo;
 
-    private Cliente dueño;
+    private Cliente dueno;
     private Veterinario v;
 
-    public Mascota(String nombre, LocalDate fechaNacimiento, String sexo, float peso, float longitud, String tipo, String raza, String tipoPelo, Cliente dueño, Veterinario v) {
+    public Mascota(String nombre, LocalDate fechaNacimiento, String sexo, float peso, float longitud, String raza, String tipoPelo) {
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.peso = peso;
         this.longitud = longitud;
-        this.tipo = tipo;
         this.raza = raza;
         this.tipoPelo = tipoPelo;
-        this.dueño = dueño;
-        this.v = v;
+
     }
 
     public String getNombre() {
@@ -76,15 +73,7 @@ public class Mascota {
         this.tipoPelo = tipoPelo;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getRaza() {
+   public String getRaza() {
         return raza;
     }
 
@@ -92,12 +81,12 @@ public class Mascota {
         this.raza = raza;
     }
 
-    public Cliente getDueño() {
-        return dueño;
+    public Cliente getDueno() {
+        return dueno;
     }
 
-    public void setDueño(Cliente dueño) {
-        this.dueño = dueño;
+    public void setDueno(Cliente dueño) {
+        this.dueno = dueno;
     }
 
     public Veterinario getV() {

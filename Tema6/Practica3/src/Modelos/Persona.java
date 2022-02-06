@@ -8,11 +8,13 @@ public class Persona {
     private int telefono;
     private ArrayList<Mascota> listaMascotas;
 
+
     public Persona(String nombre, String direccion, int telefono) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.listaMascotas = listaMascotas;
+
+        this.listaMascotas = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -43,7 +45,7 @@ public class Persona {
         return listaMascotas;
     }
 
-    public void setListaMascotas(ArrayList<Mascota> listaMascotas) {
-        this.listaMascotas = listaMascotas;
+    public void setListaMascotas(Mascota mascota) {
+        listaMascotas.add(mascota);
     }
 }
