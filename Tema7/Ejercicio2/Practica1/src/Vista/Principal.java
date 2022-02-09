@@ -63,13 +63,36 @@ public class Principal {
                 comprobarProducto();
             }
         });
+
+        tfPrecio.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                llenarPrecio();
+            }
+        });
+        bAceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (rbCompra.isSelected()){
+                guardarCompra();}
+            }
+        });
+        bCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (rbCompra.isSelected()){
+                   Main.enseñarCompra();}
+                    System.exit(1);
+            }
+        });
     }
 
     public void habilitarCompra(){
         jpVentas.setVisible(false);
         jpCompra.setVisible(true);
 
-       rellenarCompra();
+       rellenarProveedor();
     }
     public void comprobarProducto(){
         if (!Main.buscarProducto(tfProducto.getText())){
@@ -79,11 +102,27 @@ public class Principal {
             tfProducto.grabFocus();
         }
     }
-    public void rellenarCompra(){
+    public void rellenarProveedor(){
         listaProveedor = Main.buscarProveedores(tfProducto.getText());
+        for (int x=0; x<listaProveedor.size(); x++){
+        cbProveedor.addItem(listaProveedor.get(x).getNombre());}
 
-        cbProveedor.setName();
     }
+    public void llenarPrecio(){
+        float precioUnidad = Float.parseFloat(tfUnidades.getText())*Float.parseFloat(tfPrecio.getText());
+        tfImporte.setText(String.valueOf(precioUnidad));
+    }
+    public void guardarCompra(){
+        Main.guardarcompra(tfProducto.getText(),Integer.parseInt(tfUnidades.getText()),Float.parseFloat(tfImporte.getText()));
+        tfProducto.setText("");
+        tfUnidades.setText("");
+        tfImporte.setText("");
+        tfPrecio.setText("");
+        cbProveedor.addItem("");
+        tfProducto.grabFocus();
+
+    }
+
     public void habilitarVenta(){
 
         jpCompra.setVisible(false);

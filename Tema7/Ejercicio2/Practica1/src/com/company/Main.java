@@ -4,6 +4,7 @@ import Modelo.Cliente;
 import Modelo.Producto;
 import Modelo.Proveedor;
 import Vista.Principal;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.lang.reflect.Array;
@@ -15,6 +16,8 @@ public class Main {
     private static Proveedor[] listaProveedor;
     private static Producto p;
     private static ArrayList<Proveedor> aProv;
+    private static float precioUni;
+    private static String cadena="";
     public static void main(String[] args) {
         generarProductos();
 
@@ -62,13 +65,27 @@ public class Main {
         p = listaProducto[x];
         return true;
     }
-    public static ArrayList<Proveedor> buscarProveedores(String nombre){
+   /* public static float buscarPrecioPro(String producto){
         int x;
+        for (x=0; x < listaProducto.length && listaProducto[x].getNombre().compareToIgnoreCase(producto)!=0;x++){}
+
+       precioUni = listaProducto[x].getPrecioUnidad();
+        return precioUni;
+    }*/
+    public static ArrayList<Proveedor> buscarProveedores(String nombre){
+        int x=0;
         for (x=0; x < listaProducto.length && listaProducto[x].getNombre().compareToIgnoreCase(nombre)!=0;x++){}
 
 
         aProv = listaProducto[x].getListaProveedores();
        return aProv;
+    }
+    public static void guardarcompra(String nombre, int unidades, float precioTotal){
+        cadena +="Produto: " + nombre + "; Unidades: " +unidades +"; Precio Total: "+precioTotal+ "\n";
+    }
+
+    public static void enseñarCompra(){
+        JOptionPane.showMessageDialog(null, cadena);
     }
     public static void mostrarVentana() {
         JFrame frame = new JFrame("Principal");
