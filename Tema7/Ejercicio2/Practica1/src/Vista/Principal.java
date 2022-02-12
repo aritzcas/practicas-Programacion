@@ -39,7 +39,7 @@ public class Principal {
     private JTextField tfImporteV;
     private JButton bAceptar;
     private JButton bCancelar;
-
+    private ButtonGroup ButtonGroup;
     private ArrayList<Proveedor> listaProveedor;
 
     public Principal() {
@@ -103,9 +103,11 @@ public class Principal {
         }
     }
     public void rellenarProveedor(){
+        cbProveedor.removeAllItems();
         listaProveedor = Main.buscarProveedores(tfProducto.getText());
         for (int x=0; x<listaProveedor.size(); x++){
         cbProveedor.addItem(listaProveedor.get(x).getNombre());}
+        cbProveedor.setSelectedIndex(-1);
 
     }
     public void llenarPrecio(){
@@ -113,13 +115,14 @@ public class Principal {
         tfImporte.setText(String.valueOf(precioUnidad));
     }
     public void guardarCompra(){
-        Main.guardarcompra(tfProducto.getText(),Integer.parseInt(tfUnidades.getText()),Float.parseFloat(tfImporte.getText()));
+        Main.guardarcompra(Integer.parseInt(tfUnidades.getText()),Float.parseFloat(tfImporte.getText()));
         tfProducto.setText("");
         tfUnidades.setText("");
         tfImporte.setText("");
         tfPrecio.setText("");
         cbProveedor.addItem("");
         tfProducto.grabFocus();
+        ButtonGroup.clearSelection();
 
     }
 
@@ -127,8 +130,11 @@ public class Principal {
 
         jpCompra.setVisible(false);
         jpVentas.setVisible(true);
+        rellenarVenta();
     }
+    public void  rellenarVenta(){
 
+    }
     public JPanel getPanel(){
         return panel1;
     }

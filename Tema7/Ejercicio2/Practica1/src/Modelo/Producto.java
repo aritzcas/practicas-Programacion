@@ -52,4 +52,11 @@ public class Producto {
     public void setNumUnidades(int numUnidades) {
         this.numUnidades = numUnidades;
     }
+    public void cambiarUnidades(int unidadesNuevas,float precioNuevo) {
+        this.numUnidades = this.numUnidades+unidadesNuevas;
+        setPrecioNuevo(unidadesNuevas,precioNuevo);
+    }
+    public void setPrecioNuevo(int unidadesNuevas, float precioNuevo){
+        precioUnidad = ((this.numUnidades * this.precioUnidad) + (unidadesNuevas * precioNuevo))/(this.numUnidades+ unidadesNuevas);
+    }
 }

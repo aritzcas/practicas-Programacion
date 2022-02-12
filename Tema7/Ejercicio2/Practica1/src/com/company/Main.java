@@ -80,8 +80,8 @@ public class Main {
         aProv = listaProducto[x].getListaProveedores();
        return aProv;
     }
-    public static void guardarcompra(String nombre, int unidades, float precioTotal){
-        cadena +="Produto: " + nombre + "; Unidades: " +unidades +"; Precio Total: "+precioTotal+ "\n";
+    public static void guardarcompra( int unidades, float precioTotal){
+        p.cambiarUnidades(unidades,precioTotal);
     }
 
     public static void enseñarCompra(){
