@@ -1,14 +1,16 @@
 package Vista;
 
+import Modelo.Producto;
 import Modelo.Proveedor;
 import com.company.Main;
 import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class Principal {
@@ -41,7 +43,8 @@ public class Principal {
     private JButton bCancelar;
     private ButtonGroup ButtonGroup;
     private ArrayList<Proveedor> listaProveedor;
-
+    private Producto pro;
+    private float precio;
     public Principal() {
 
         rbCompra.addActionListener(new ActionListener() {
@@ -84,6 +87,53 @@ public class Principal {
                 if (rbCompra.isSelected()){
                    Main.enseñarCompra();}
                     System.exit(1);
+            }
+        });
+
+        tfImporteV.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                cbVolumen.setEnabled(true);
+                cbProntoPago.setEnabled(true);
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+
+        });
+
+
+        tfUnidades.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                switch (comprobarRB()) {
+                    case 1:
+                        rbCompra.doClick();
+                        break;
+                    case 2:
+                        rbVenta.doClick();
+                        break;
+
+                }
+            }
+        });
+        cbVolumen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rbVenta.doClick();
+            }
+        });
+        cbProntoPago.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rbVenta.doClick();
             }
         });
     }
@@ -130,11 +180,36 @@ public class Principal {
 
         jpCompra.setVisible(false);
         jpVentas.setVisible(true);
-        rellenarVenta();
+        rellenarPrecioVenta();
     }
-    public void  rellenarVenta(){
 
+    public int comprobarRB() {
+        if (jpCompra.isVisible() && !jpVentas.isVisible()){
+            return 1;
+        }else if (jpVentas.isVisible() && !jpCompra.isVisible()){
+            return 2;
+        }
+        else
+            return 0;
     }
+
+    public void  rellenarPrecioVenta(){
+        float precioFinal = 0.0f;
+        precio = Main.buscarPrecioPro(tfProducto.getText());
+        tfPrecioV.setText(String.valueOf(precio*2));
+        tfPrecioV.setEditable(false);
+        precio = (precio*2)* Float.parseFloat(tfUnidades.getText());
+        precioFinal=precio;
+        if (cbVolumen.isSelected()){
+            precioFinal-=(precio *0.02);
+        }
+        if (cbProntoPago.isSelected()){
+            precioFinal-=(precio*0.03);
+        }
+        tfImporteV.setText(String.valueOf(precioFinal));
+
+   }
+
     public JPanel getPanel(){
         return panel1;
     }

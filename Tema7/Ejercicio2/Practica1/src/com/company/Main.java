@@ -65,13 +65,13 @@ public class Main {
         p = listaProducto[x];
         return true;
     }
-   /* public static float buscarPrecioPro(String producto){
+    public static float buscarPrecioPro(String producto){
         int x;
         for (x=0; x < listaProducto.length && listaProducto[x].getNombre().compareToIgnoreCase(producto)!=0;x++){}
 
        precioUni = listaProducto[x].getPrecioUnidad();
         return precioUni;
-    }*/
+    }
     public static ArrayList<Proveedor> buscarProveedores(String nombre){
         int x=0;
         for (x=0; x < listaProducto.length && listaProducto[x].getNombre().compareToIgnoreCase(nombre)!=0;x++){}
