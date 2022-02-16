@@ -1,5 +1,6 @@
 package Vista;
 
+import Modelo.Producto;
 import Modelo.Proveedor;
 import com.company.Main;
 
@@ -17,12 +18,16 @@ public class Compra extends JDialog {
     private  JComboBox cbProveedor;
     private JLabel lImporte;
     private JTextField tfImporte;
+    private Producto p;
+    private int unidades;
     private static ArrayList<Proveedor> listaProveedor;
-    public Compra() {
+    public Compra(Producto p, int unidades) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
+        this.p=p;
+        this.unidades=unidades;
+        rellenarP();
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
@@ -34,6 +39,15 @@ public class Compra extends JDialog {
                 onCancel();
             }
         });
+        tfPrecio.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                ponerPrecio();
+            }
+        });
+        this.pack();
+        this.setVisible(true);
 
     }
 
@@ -49,20 +63,13 @@ public class Compra extends JDialog {
         // add your code here if necessary
         dispose();
     }
-    public void rellenarP(String pro){
-        cbProveedor.removeAllItems();
-        listaProveedor = Main.buscarProveedores(pro);
-        for (int x=0; x<listaProveedor.size(); x++){
-            cbProveedor.addItem(listaProveedor.get(x).getNombre());}
-        cbProveedor.setSelectedIndex(-1);
-
-            float precioUnidad = Float.parseFloat(Main.darUnidades())*Float.parseFloat(tfPrecio.getText());
-            tfImporte.setText(String.valueOf(precioUnidad));
+    public void rellenarP(){
+        for (Proveedor prov: p.getListaProveedores()){
+            cbProveedor.addItem(prov.getNombre());
+        }
     }
-    public static void main(String[] args) {
-        Compra dialog = new Compra();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+    public void ponerPrecio(){
+        float precioUnidad = unidades*Float.parseFloat(tfPrecio.getText());
+        tfImporte.setText(String.valueOf(precioUnidad));
     }
 }

@@ -1,5 +1,7 @@
 package Vista;
 
+import Modelo.Producto;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -8,10 +10,11 @@ public class Venta extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
 
-    public Venta() {
+    public Venta(Producto p, int unidades) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -39,6 +42,9 @@ public class Venta extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        this.pack();
+        this.setVisible(true);
     }
 
     private void onOK() {
@@ -49,12 +55,5 @@ public class Venta extends JDialog {
     private void onCancel() {
         // add your code here if necessary
         dispose();
-    }
-
-    public static void main(String[] args) {
-        Venta dialog = new Venta();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 }

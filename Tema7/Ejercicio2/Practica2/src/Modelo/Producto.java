@@ -16,7 +16,12 @@ public class Producto {
 
         listaProveedores= new ArrayList<>();
     }
+    public Producto(String nombre, int numUnidades) {
+        this.nombre = nombre;
+        this.numUnidades = numUnidades;
 
+        listaProveedores= new ArrayList<>();
+    }
     public Producto() {
 
     }

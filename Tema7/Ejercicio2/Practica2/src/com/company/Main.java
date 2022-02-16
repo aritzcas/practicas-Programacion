@@ -22,7 +22,7 @@ public class Main {
     public static void main(String[] args) {
         generarProductos();
 
-        mostrarVentana();
+       new Principal();
 
     }
 
@@ -57,14 +57,14 @@ public class Main {
 
         listaCliente = new ArrayList<>();
     }
-    public static boolean buscarProducto(String producto){
+    public static Producto buscarProducto(String producto){
         int x;
         for (x=0; x < listaProducto.length && listaProducto[x].getNombre().compareToIgnoreCase(producto)!=0;x++){}
         if (x == listaProducto.length)
-            return false;
+            return null;
 
         p = listaProducto[x];
-        return true;
+        return p;
     }
     public static float buscarPrecioPro(String producto){
         int x;
@@ -91,8 +91,9 @@ public class Main {
     public static void recibirUnidades(String text){
         unidades = text;
     }
-    public static String darUnidades() {
-        return unidades;
+    public static int darUnidades() {
+        int uni = Integer.parseInt(unidades);
+        return uni;
     }
     public static void mostrarVentana() {
         JFrame frame = new JFrame("Principal");
@@ -100,8 +101,5 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
-
     }
-
 }

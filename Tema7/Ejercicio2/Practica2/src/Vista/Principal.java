@@ -3,6 +3,7 @@ package Vista;
 import Modelo.Producto;
 import Modelo.Proveedor;
 import com.company.Main;
+import com.sun.deploy.ui.ProgressDialog;
 import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
@@ -45,11 +46,18 @@ public class Principal {
     private JDialog compra;
     private JDialog venta;
     public Principal() {
+        JFrame frame = new JFrame("Principal");
+        frame.setContentPane(this.getPanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
 
         rbCompra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                crearProducto();
                 habilitarCompra();
+
             }
         });
         rbVenta.addActionListener(new ActionListener() {
@@ -108,7 +116,7 @@ public class Principal {
         });
 
 
-        tfUnidades.addKeyListener(new KeyAdapter() {
+        /*tfUnidades.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
@@ -122,7 +130,7 @@ public class Principal {
 
                 }
             }
-        });
+        });*/
         cbVolumen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -138,15 +146,16 @@ public class Principal {
     }
 
     public void habilitarCompra(){
-        Compra compra  = new Compra();
-        compra.rellenarP(tfProducto.getText());
-        compra.pack();
-        compra.setVisible(true);
+        Producto p = Main.buscarProducto(tfProducto.getText());
+        int unidades=Integer.parseInt(tfUnidades.getText());
+        if (p!=null && unidades>0){
+            Compra compra  = new Compra(p, unidades);
+        }
 
 
     }
     public void comprobarProducto(){
-        if (!Main.buscarProducto(tfProducto.getText())){
+        if (Main.buscarProducto(tfProducto.getText())==null){
             JOptionPane.showMessageDialog(null, "No hay productos con ese nombre");
             tfProducto.setText("");
             tfUnidades.setText("");
@@ -161,13 +170,8 @@ public class Principal {
         cbProveedor.setSelectedIndex(-1);
 
     }
-    public  void darUnidades(){
-        Main.recibirUnidades(tfUnidades.getText());
-
-    }
-    public void llenarPrecio(){
-        float precioUnidad = Float.parseFloat(tfUnidades.getText())*Float.parseFloat(tfPrecio.getText());
-        tfImporte.setText(String.valueOf(precioUnidad));
+    public void crearProducto(){
+        pro = new Producto(tfProducto.getText(), Integer.parseInt(tfUnidades.getText()));
     }
     public void guardarCompra(){
         Main.guardarcompra(Integer.parseInt(tfUnidades.getText()),Float.parseFloat(tfImporte.getText()));
@@ -182,13 +186,15 @@ public class Principal {
     }
 
     public void habilitarVenta(){
-        Venta venta  = new Venta();
-        venta.pack();
-        venta.setVisible(true);
-        rellenarPrecioVenta();
+        Producto p = Main.buscarProducto(tfProducto.getText());
+        int unidades=Integer.parseInt(tfUnidades.getText());
+        if (p!=null && unidades>0){
+            Venta venta  = new Venta(p, unidades);
+        }
+
     }
 
-    public int comprobarRB() {
+    /*public int comprobarRB() {
         if (compra.isVisible() && !venta.isVisible()){
             return 1;
         }else if (venta.isVisible() && !compra.isVisible()){
@@ -196,7 +202,7 @@ public class Principal {
         }
         else
             return 0;
-    }
+    }*/
 
     public void  rellenarPrecioVenta(){
         float precioFinal = 0.0f;
