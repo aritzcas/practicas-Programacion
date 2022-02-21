@@ -2,14 +2,14 @@ package Clases;
 
 import java.util.ArrayList;
 
-public class CLiente {
+public class Cliente {
     private String DNI;
     private String nombreApellidos;
     private int clave;
 
     private ArrayList<Cuenta> listaCuentas;
 
-    public CLiente(String DNI, String nombreApellidos, int clave) {
+    public Cliente(String DNI, String nombreApellidos, int clave) {
         this.DNI = DNI;
         this.nombreApellidos = nombreApellidos;
         this.clave = clave;
