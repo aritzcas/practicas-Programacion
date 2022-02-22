@@ -9,16 +9,19 @@ import Clases.*;
 public class VentanaP {
     private JPanel panel1;
     private JButton bAcceso;
-    private JPanel JPImagen;
     private JLabel lTitulo;
+    private JButton bKutxa;
 
 
     public VentanaP() {
         JFrame frame = new JFrame("VentanaP");
         frame.setContentPane(this.panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        bKutxa.setEnabled(false);
+        frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
+
 
 
 

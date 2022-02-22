@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Login extends JDialog {
     private JPanel contentPane;
@@ -24,11 +26,14 @@ public class Login extends JDialog {
     private JButton b10;
     private JLabel lDNI;
     private JLabel lContasena;
+    private JButton bBorrarContrasena;
+
     public Login() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(bEntrar);
         numerosRandom();
+        tfContrasena.setEditable(false);
 
 
         bEntrar.addActionListener(new ActionListener() {
@@ -36,7 +41,9 @@ public class Login extends JDialog {
                 if (Main.comprobarClave(tfDNI.getText(), Integer.parseInt(tfContrasena.getText()))==true){
                     new VentanaTran();
                 }else{
+                    javax.swing.JOptionPane.showMessageDialog(null, "La contraseña no es correcta.");
                     tfContrasena.setText("");
+
                 }
             }
         });
@@ -101,6 +108,21 @@ public class Login extends JDialog {
                 tfContrasena.setText(tfContrasena.getText()+textoBoton(e));
             }
         });
+        tfDNI.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                comprobarDNIValido(tfDNI.getText());
+            }
+        });
+        bBorrarContrasena.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tfContrasena.setText("");
+                numerosRandom();
+            }
+        });
+
         this.pack();
         this.setVisible(true);
     }
@@ -133,4 +155,24 @@ public class Login extends JDialog {
         return ((JButton) e.getSource()).getText();
     }
 
+    private void comprobarDNIValido(String dni){
+        Pattern pat = Pattern.compile("[0-9]{7,8}[A-Za-z]");
+        Matcher mat = pat.matcher(dni);
+        if (dni.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(null,"No puede estar vacio el DNI");
+            tfDNI.grabFocus();
+            tfDNI.setText("");
+            tfContrasena.setText("");
+        }else if(!mat.matches()){
+            javax.swing.JOptionPane.showMessageDialog(null,"El DNI no es correcto");
+            tfDNI.grabFocus();
+            tfDNI.setText("");
+            tfContrasena.setText("");
+        }else if (!Main.comprobarDNI(dni)){
+            javax.swing.JOptionPane.showMessageDialog(null,"El DNI no esta en nuestra Base de Datos");
+            tfDNI.grabFocus();
+            tfDNI.setText("");
+            tfContrasena.setText("");
+        }
+    }
 }

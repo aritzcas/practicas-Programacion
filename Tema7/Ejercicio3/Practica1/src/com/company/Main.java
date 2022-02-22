@@ -2,9 +2,6 @@ package com.company;
 
 import Clases.Cliente;
 import Vistas.VentanaP;
-import Clases.Crypto;
-
-import javax.swing.*;
 
 public class Main {
     private static Cliente[] listaClientes;
@@ -22,11 +19,22 @@ public class Main {
     }
 
     public static boolean comprobarClave(String dni, int clave){
-        for (int i=0; i<listaClientes.length;i ++){
+        boolean encontrado=false;
+        for (int i=0; i<listaClientes.length && !encontrado;i ++){
             if(listaClientes[i].getDNI().equalsIgnoreCase(dni)){
                 if (listaClientes[i].getClave() == clave){
+                    encontrado=true;
                     return true;
                 }
+            }
+
+        }
+        return false;
+    }
+    public static boolean comprobarDNI(String dni){
+        for (int i=0; i<listaClientes.length;i ++){
+            if(listaClientes[i].getDNI().equalsIgnoreCase(dni)){
+                    return true;
             }
 
         }
