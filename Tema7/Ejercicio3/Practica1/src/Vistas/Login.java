@@ -39,7 +39,7 @@ public class Login extends JDialog {
         bEntrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (Main.comprobarClave(tfDNI.getText(), Integer.parseInt(tfContrasena.getText()))==true){
-                    new VentanaTran();
+                    Main.mostrarT(tfDNI.getText());
                 }else{
                     javax.swing.JOptionPane.showMessageDialog(null, "La contraseña no es correcta.");
                     tfContrasena.setText("");
@@ -122,9 +122,6 @@ public class Login extends JDialog {
                 numerosRandom();
             }
         });
-
-        this.pack();
-        this.setVisible(true);
     }
 
     private void onOK() {

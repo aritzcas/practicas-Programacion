@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Clases.*;
+import com.company.Main;
+
 public class VentanaP {
     private JPanel panel1;
     private JButton bAcceso;
@@ -28,7 +30,7 @@ public class VentanaP {
         bAcceso.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Login dialog = new Login();
+                Main.mostrarLogin();
 
             }
         });
