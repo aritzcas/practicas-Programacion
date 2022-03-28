@@ -2,7 +2,7 @@ package com.company;
 
 import Modelo.BD.BasedeDatos;
 import Modelo.BD.PersonaDAO;
-import Modelo.Personas;
+import Modelo.Persona;
 import Vistas.ventanaPrincipal;
 import Vistas.ventanaSecundaria;
 import sun.print.BackgroundServiceLookup;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class Main {
     private static BasedeDatos bd;
     private static PersonaDAO pdao;
-    private static Personas p;
+    private static Persona p;
 
     public static void main(String[] args){
         try{
@@ -59,7 +59,7 @@ public class Main {
     }
     public static void tenDatos(String nombre, int edad, String profesion, String telefono){
         try {
-            p = new Personas(nombre, edad, profesion, telefono);
+            p = new Persona(nombre, edad, profesion, telefono);
             pdao.insertPersona(p);
         }catch (Exception e){
             javax.swing.JOptionPane.showMessageDialog(null, e.getClass());
@@ -83,8 +83,11 @@ public class Main {
     }
 
     public static void tenDato(String text) {
-        p = new Personas(text);
+        p = new Persona(text);
 
+    }
+
+    public static void getNombre(String text) {
     }
 }
 

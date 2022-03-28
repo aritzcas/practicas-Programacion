@@ -4,14 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class BaseDatos {
-    private String url = "jdbc:mysql://localhost:3306/ejercicio1";
-    private String user = "root";
-    private  String passwd = "usbw";
+    private static String url = "jdbc:mysql://localhost:3306/ejercicio1";
+    private static String user = "root";
+    private static   String passwd = "usbw";
 
-    private Connection con;
+    private static Connection con;
 
 
-    public BaseDatos() throws Exception {
+    public static void AbrirBase() throws Exception {
 
         // 1. Cargar el controlador de acceso a datos
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -23,10 +23,10 @@ public class BaseDatos {
         }
     }
 
-    public Connection getConnection(){
+    public static Connection getConnection(){
         return con;
     }
-    public void desconectar() throws Exception{
+    public static void desconectar() throws Exception{
         con.close();
     }
 }

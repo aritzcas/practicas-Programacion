@@ -1,20 +1,23 @@
 package Modelo.UML;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Evento {
     private String nombre;
     private String lugar;
     private LocalDate fecha;
-    private int horaIncio;
-    private int horaFin;
+    private LocalTime horaIncio;
+    private LocalTime horaFin;
     private int numPersonas;
 
     public Evento() {
     }
-
-    public Evento(String nombre, String lugar, LocalDate fecha, int horaIncio, int horaFin, int numPersonas) {
+    public Evento(String text){
+        this.nombre = text;
+    }
+    public Evento(String nombre, String lugar, LocalDate fecha, LocalTime horaIncio, LocalTime horaFin, int numPersonas) {
         this.nombre = nombre;
         this.lugar = lugar;
         this.fecha = fecha;
@@ -47,19 +50,19 @@ public class Evento {
         this.fecha = fecha;
     }
 
-    public int getHoraIncio() {
+    public LocalTime getHoraIncio() {
         return horaIncio;
     }
 
-    public void setHoraIncio(int horaIncio) {
+    public void setHoraIncio(LocalTime horaIncio) {
         this.horaIncio = horaIncio;
     }
 
-    public int getHoraFin() {
+    public LocalTime getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(int horaFin) {
+    public void setHoraFin(LocalTime horaFin) {
         this.horaFin = horaFin;
     }
 

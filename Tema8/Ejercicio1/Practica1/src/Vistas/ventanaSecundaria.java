@@ -67,6 +67,23 @@ public class ventanaSecundaria extends JDialog {
                 Main.tenDato(tfNombre.getText());}
             }
         });
+        tfNombre.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (opciones.equalsIgnoreCase("2"))
+                {
+                    try {
+                        if (Main.validarNombre(tfNombre.getText())){
+                        Main.getNombre(tfNombre.getText());}
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+            }
+        });
+            }
+        });
     }
 
     private void onOK() {
